@@ -75,6 +75,7 @@ import com.example.compose.tertiaryContainerDark
 import com.example.compose.tertiaryContainerLight
 import com.example.compose.tertiaryDark
 import com.example.compose.tertiaryLight
+import dev.luaoctaviano.dindin.core.ui.extension.resetStatusBarIconColor
 
 private val lightScheme = lightColorScheme(
     primary = primaryLight,
@@ -158,6 +159,8 @@ fun DinDinTheme(
     content: @Composable() () -> Unit
 ) {
     val colorScheme = if (darkTheme) darkScheme else lightScheme
+
+    resetStatusBarIconColor()
 
     MaterialTheme(
         colorScheme = colorScheme,
