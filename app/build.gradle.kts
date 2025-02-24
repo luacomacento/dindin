@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -45,6 +47,12 @@ dependencies {
     implementation(project(":feature:transactions"))
     implementation(project(":feature:bank-accounts"))
     implementation(project(":feature:categories"))
+
+    implementation(libs.androidx.navigation)
+
+    // di
+    implementation(libs.hilt)
+    ksp(libs.hilt.compiler)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
