@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="current_balance">Saldo atual</string>
+    <string name="income_this_month">Receitas no mês</string>
+    <string name="expenses_this_month">Despesas no mês</string>
+</resources>
