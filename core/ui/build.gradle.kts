@@ -40,6 +40,8 @@ dependencies {
     implementation(project(":core:util"))
     implementation(project(":core:data"))
 
+    implementation(libs.androidx.navigation)
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.core)
     implementation(libs.androidx.ui)
