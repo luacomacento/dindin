@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import dev.luaoctaviano.dindin.core.ui.extension.buttonPushDownAnim
 import dev.luaoctaviano.dindin.core.ui.theme.Dimens
 
 
@@ -32,7 +33,7 @@ internal fun DinNavigationBarItem(
     isMainItem: Boolean = false,
     icon: @Composable () -> Unit,
     enabled: Boolean = true,
-    selectedContentColor: Color = Color.White,
+    selectedContentColor: Color = MaterialTheme.colorScheme.primary,
 ) {
     val backgroundColor =
         if (isMainItem) {
@@ -41,7 +42,7 @@ internal fun DinNavigationBarItem(
             Color.Transparent
         }
 
-//    val defaultModifier = if (isMainItem) Modifier.buttonPushDownAnim(enabled) else modifier
+    val defaultModifier = if (isMainItem) Modifier.buttonPushDownAnim(enabled) else modifier
 
     Column(
         modifier = modifier,
@@ -50,7 +51,7 @@ internal fun DinNavigationBarItem(
     ) {
         Box(
             modifier =
-                Modifier
+                defaultModifier
                     .defaultMinSize(minHeight = 40.dp)
                     .fillMaxWidth()
                     .background(

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarDefaults
@@ -14,20 +15,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
-import dev.luaoctaviano.dindin.core.ui.extension.isBankAccounts
-import dev.luaoctaviano.dindin.core.ui.extension.isCategories
-import dev.luaoctaviano.dindin.core.ui.extension.isHome
-import dev.luaoctaviano.dindin.core.ui.extension.isTransactions
+import dev.luaoctaviano.dindin.core.ui.enums.DinBottomNavItem
+import dev.luaoctaviano.dindin.core.ui.extension.AppRoute
+import dev.luaoctaviano.dindin.core.ui.extension.isMainItem
 import dev.luaoctaviano.dindin.core.ui.theme.Dimens
 import dev.luaoctaviano.dindin.core.ui.theme.DinDinTheme
 
 @Composable
 fun DinNavigationBar(
     currentDestination: NavDestination?,
-    onNewTransactionClick: () -> Unit,
+    listener: NavBarListener,
 ) {
     val hapticFeedback = LocalHapticFeedback.current
 
@@ -46,39 +47,24 @@ fun DinNavigationBar(
                         .fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(Dimens.small),
             ) {
-                HomeNavBarItem(
-                    modifier = Modifier.weight(1F),
-                    isSelected = currentDestination.isHome(),
-                ) {
-//                    navController.navigateTo(currentDestination?.route, NavRoutes.HOME.name)
-                }
-
-                TransactionsNavBarItem(
-                    modifier = Modifier.weight(1F),
-                    isSelected = currentDestination.isTransactions(),
-                ) {
-//                    navController.navigateTo(currentDestination?.route, NavRoutes.TRANSACTIONS.name)
-                }
-
-                NewTransactionNavBarItem(
-                    modifier = Modifier.weight(1F),
-                ) {
-                    hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
-                    onNewTransactionClick.invoke()
-                }
-
-                BankAccountsNavBarItem(
-                    modifier = Modifier.weight(1F),
-                    isSelected = currentDestination.isBankAccounts(),
-                ) {
-                    // Not available
-                }
-
-                CategoriesNavBarItem(
-                    modifier = Modifier.weight(1F),
-                    isSelected = currentDestination.isCategories(),
-                ) {
-                    // Not available
+                DinBottomNavItem.entries().forEach {
+                    DinNavigationBarItem(
+                        modifier = Modifier.weight(1F),
+                        selected = currentDestination?.route == it.route.name,
+                        onClick = {
+                            if (it.isMainItem()) {
+                                hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
+                            }
+                            listener.onItemClick(it.route)
+                        },
+                        isMainItem = it.isMainItem(),
+                        icon = {
+                            Icon(
+                                painter = painterResource(it.icon),
+                                contentDescription = null,
+                            )
+                        },
+                    )
                 }
             }
         }
@@ -91,7 +77,9 @@ fun DinNavigationBarPreview() {
     DinDinTheme {
         DinNavigationBar(
             currentDestination = null,
-            onNewTransactionClick = {}
+            listener = object : NavBarListener {
+                override fun onItemClick(itemRoute: AppRoute) = Unit
+            }
         )
     }
 }
