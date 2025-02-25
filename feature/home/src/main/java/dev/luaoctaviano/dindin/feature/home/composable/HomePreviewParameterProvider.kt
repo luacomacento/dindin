@@ -1,6 +1,10 @@
-package dev.luaoctaviano.dindin.feature.home
+package dev.luaoctaviano.dindin.feature.home.composable
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import dev.luaoctaviano.dindin.core.data.source.local.entity.BankAccount
+import dev.luaoctaviano.dindin.core.ui.extension.CoreIcons
+import dev.luaoctaviano.dindin.feature.home.HomeHeaderUiState
+import dev.luaoctaviano.dindin.feature.home.HomeUiState
 
 class HomePreviewParameterProvider : PreviewParameterProvider<HomeUiState> {
     private val defaultHeader = HomeHeaderUiState(
@@ -9,9 +13,14 @@ class HomePreviewParameterProvider : PreviewParameterProvider<HomeUiState> {
         monthExpense = 8756L,
     )
 
-    val defaultState = HomeUiState(
+    private val defaultAccountList = listOf(
+        BankAccount(name = "Carteira", iconId = CoreIcons.WALLET.id)
+    )
+
+    private val defaultState = HomeUiState(
         header = defaultHeader,
         hideValues = false,
+        bankAccounts = defaultAccountList,
     )
 
     private val hiddenState = defaultState.copy(

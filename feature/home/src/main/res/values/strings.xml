@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--  Header  -->
     <string name="current_balance">Saldo atual</string>
     <string name="income_this_month">Receitas no mês</string>
     <string name="expenses_this_month">Despesas no mês</string>
+
+    <!-- Accounts Section -->
+    <string name="accounts_label">Contas</string>
 </resources>

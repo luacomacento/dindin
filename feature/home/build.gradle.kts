@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -38,9 +40,13 @@ android {
 
 dependencies {
     implementation(project(":core:util"))
-    implementation(project(":core:data"))
+//    implementation(project(":core:data"))
     implementation(project(":core:domain"))
     implementation(project(":core:ui"))
+
+    // di
+    implementation(libs.hilt)
+    ksp(libs.hilt.compiler)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
