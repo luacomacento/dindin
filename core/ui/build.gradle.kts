@@ -38,9 +38,9 @@ android {
 
 dependencies {
     implementation(project(":core:util"))
-    implementation(project(":core:data"))
+    implementation(project(":core:domain"))
 
-    implementation(libs.androidx.navigation)
+    api(libs.androidx.navigation)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.core)
