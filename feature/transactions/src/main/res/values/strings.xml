@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="transaction_paid">Pago</string>
+    <string name="transaction_pending">Pendente</string>
+    <string name="placeholder_add_description">Adicione uma descrição</string>
+    <string name="description_expense">Despesa</string>
+    <string name="description_income">Receita</string>
+    <string name="description_transfer">Transferência</string>
+    <string name="title_new_expense">Nova despesa</string>
+    <string name="title_new_income">Nova receita</string>
+    <string name="title_new_transfer">Nova transferência</string>
+    <string name="action_make_default">Tornar padrão</string>
+    <string name="action_select_account">Selecionar conta</string>
+</resources>
