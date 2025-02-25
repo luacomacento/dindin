@@ -1,16 +1,28 @@
 package dev.luaoctaviano.dindin.core.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import com.example.compose.ExtendedColors
+import com.example.compose.LocalExtendedColors
 import com.example.compose.backgroundDark
 import com.example.compose.backgroundLight
 import com.example.compose.errorContainerDark
 import com.example.compose.errorContainerLight
 import com.example.compose.errorDark
 import com.example.compose.errorLight
+import com.example.compose.expenseRedContainerDark
+import com.example.compose.expenseRedContainerLight
+import com.example.compose.expenseRedDark
+import com.example.compose.expenseRedLight
+import com.example.compose.incomeGreenContainerDark
+import com.example.compose.incomeGreenContainerLight
+import com.example.compose.incomeGreenDark
+import com.example.compose.incomeGreenLight
 import com.example.compose.inverseOnSurfaceDark
 import com.example.compose.inverseOnSurfaceLight
 import com.example.compose.inversePrimaryDark
@@ -75,6 +87,10 @@ import com.example.compose.tertiaryContainerDark
 import com.example.compose.tertiaryContainerLight
 import com.example.compose.tertiaryDark
 import com.example.compose.tertiaryLight
+import com.example.compose.transferBlueContainerDark
+import com.example.compose.transferBlueContainerLight
+import com.example.compose.transferBlueDark
+import com.example.compose.transferBlueLight
 import dev.luaoctaviano.dindin.core.ui.extension.resetStatusBarIconColor
 
 private val lightScheme = lightColorScheme(
@@ -153,18 +169,55 @@ private val darkScheme = darkColorScheme(
     surfaceContainerHighest = surfaceContainerHighestDark,
 )
 
+private val lightExtendedColors = ExtendedColors(
+    expenseRed = expenseRedLight,
+    expenseRedContainer = expenseRedContainerLight,
+    incomeGreen = incomeGreenLight,
+    incomeGreenContainer = incomeGreenContainerLight,
+    transferBlue = transferBlueLight,
+    transferBlueContainer = transferBlueContainerLight,
+)
+
+private val darkExtendedColors = ExtendedColors(
+    expenseRed = expenseRedDark,
+    expenseRedContainer = expenseRedContainerDark,
+    incomeGreen = incomeGreenDark,
+    incomeGreenContainer = incomeGreenContainerDark,
+    transferBlue = transferBlueDark,
+    transferBlueContainer = transferBlueContainerDark,
+)
+
 @Composable
 fun DinDinTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable() () -> Unit
 ) {
-    val colorScheme = if (darkTheme) darkScheme else lightScheme
+    val colorScheme: ColorScheme
+    val extendedColors: ExtendedColors
+
+    if (darkTheme) {
+        colorScheme = darkScheme
+        extendedColors = darkExtendedColors
+    } else {
+        colorScheme = lightScheme
+        extendedColors = lightExtendedColors
+    }
 
     resetStatusBarIconColor()
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = DinDinTypography,
-        content = content
-    )
+    CompositionLocalProvider(
+        LocalExtendedColors provides extendedColors
+    ) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = DinDinTypography,
+            content = content
+        )
+    }
+}
+
+object DinDinTheme {
+    val colors: ExtendedColors
+        @Composable
+        get() = LocalExtendedColors.current
 }

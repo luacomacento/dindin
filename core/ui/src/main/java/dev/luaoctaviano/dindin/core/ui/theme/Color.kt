@@ -1,4 +1,7 @@
 package com.example.compose
+
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 val primaryLight = Color(0xFF8D4959)
@@ -72,3 +75,39 @@ val surfaceContainerLowDark = Color(0xFF22191B)
 val surfaceContainerDark = Color(0xFF261D1F)
 val surfaceContainerHighDark = Color(0xFF312829)
 val surfaceContainerHighestDark = Color(0xFF3C3234)
+
+// Extended colors
+val incomeGreenLight = Color(0xff0d9d6f)
+val incomeGreenContainerLight = Color(0xFF00855A)
+val expenseRedLight = Color(0xfff64d55)
+val expenseRedContainerLight = Color(0xFFD8333B)
+val transferBlueLight = Color(0xFF5F69D9)
+val transferBlueContainerLight = Color(0xFF3942B2)
+
+val incomeGreenDark = Color(0xff0d9d6f)
+val incomeGreenContainerDark = Color(0xFF00855A)
+val expenseRedDark = Color(0xfff64d55)
+val expenseRedContainerDark = Color(0xFFD8333B)
+val transferBlueDark = Color(0xFF5F69D9)
+val transferBlueContainerDark = Color(0xFF3942B2)
+
+@Immutable
+data class ExtendedColors(
+    val expenseRed: Color,
+    val expenseRedContainer: Color,
+    val incomeGreen: Color,
+    val incomeGreenContainer: Color,
+    val transferBlue: Color,
+    val transferBlueContainer: Color,
+)
+
+val LocalExtendedColors = staticCompositionLocalOf {
+    ExtendedColors(
+        expenseRed = Color.Unspecified,
+        expenseRedContainer = Color.Unspecified,
+        incomeGreen = Color.Unspecified,
+        incomeGreenContainer = Color.Unspecified,
+        transferBlue = Color.Unspecified,
+        transferBlueContainer = Color.Unspecified,
+    )
+}
