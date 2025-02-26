@@ -19,6 +19,10 @@ import com.example.compose.expenseRedContainerDark
 import com.example.compose.expenseRedContainerLight
 import com.example.compose.expenseRedDark
 import com.example.compose.expenseRedLight
+import com.example.compose.homeBackgroundGradientEndDark
+import com.example.compose.homeBackgroundGradientEndLight
+import com.example.compose.homeBackgroundGradientStartDark
+import com.example.compose.homeBackgroundGradientStartLight
 import com.example.compose.incomeGreenContainerDark
 import com.example.compose.incomeGreenContainerLight
 import com.example.compose.incomeGreenDark
@@ -176,6 +180,8 @@ private val lightExtendedColors = ExtendedColors(
     incomeGreenContainer = incomeGreenContainerLight,
     transferBlue = transferBlueLight,
     transferBlueContainer = transferBlueContainerLight,
+    homeBackgroundGradientStart = homeBackgroundGradientStartLight,
+    homeBackgroundGradientEnd = homeBackgroundGradientEndLight,
 )
 
 private val darkExtendedColors = ExtendedColors(
@@ -185,6 +191,8 @@ private val darkExtendedColors = ExtendedColors(
     incomeGreenContainer = incomeGreenContainerDark,
     transferBlue = transferBlueDark,
     transferBlueContainer = transferBlueContainerDark,
+    homeBackgroundGradientStart = homeBackgroundGradientStartDark,
+    homeBackgroundGradientEnd = homeBackgroundGradientEndDark,
 )
 
 @Composable

@@ -58,7 +58,7 @@ val errorContainerDark = Color(0xFF93000A)
 val onErrorContainerDark = Color(0xFFFFDAD6)
 val backgroundDark = Color(0xFF191113)
 val onBackgroundDark = Color(0xFFEFDEE0)
-val surfaceDark = Color(0xFF191113)
+val surfaceDark = Color(0xff100b0c)
 val onSurfaceDark = Color(0xFFEFDEE0)
 val surfaceVariantDark = Color(0xFF524345)
 val onSurfaceVariantDark = Color(0xFFD6C2C4)
@@ -78,18 +78,23 @@ val surfaceContainerHighestDark = Color(0xFF3C3234)
 
 // Extended colors
 val incomeGreenLight = Color(0xff0d9d6f)
-val incomeGreenContainerLight = Color(0xFF00855A)
+val incomeGreenContainerLight = Color(0xff047853)
 val expenseRedLight = Color(0xfff64d55)
-val expenseRedContainerLight = Color(0xFFD8333B)
+val expenseRedContainerLight = Color(0xffc5383e)
 val transferBlueLight = Color(0xFF5F69D9)
-val transferBlueContainerLight = Color(0xFF3942B2)
+val transferBlueContainerLight = Color(0xff353c97)
+val homeBackgroundGradientStartLight = Color(0xFF2D3B85)
+val homeBackgroundGradientEndLight = Color(0xffc82f7a)
+
 
 val incomeGreenDark = Color(0xff0d9d6f)
-val incomeGreenContainerDark = Color(0xFF00855A)
+val incomeGreenContainerDark = Color(0xff0c5742)
 val expenseRedDark = Color(0xfff64d55)
-val expenseRedContainerDark = Color(0xFFD8333B)
+val expenseRedContainerDark = Color(0xff801f25)
 val transferBlueDark = Color(0xFF5F69D9)
-val transferBlueContainerDark = Color(0xFF3942B2)
+val transferBlueContainerDark = Color(0xff222667)
+val homeBackgroundGradientStartDark = Color(0xff1e275a)
+val homeBackgroundGradientEndDark = Color(0xff852052)
 
 @Immutable
 data class ExtendedColors(
@@ -99,6 +104,8 @@ data class ExtendedColors(
     val incomeGreenContainer: Color,
     val transferBlue: Color,
     val transferBlueContainer: Color,
+    val homeBackgroundGradientStart: Color,
+    val homeBackgroundGradientEnd: Color,
 )
 
 val LocalExtendedColors = staticCompositionLocalOf {
@@ -109,5 +116,7 @@ val LocalExtendedColors = staticCompositionLocalOf {
         incomeGreenContainer = Color.Unspecified,
         transferBlue = Color.Unspecified,
         transferBlueContainer = Color.Unspecified,
+        homeBackgroundGradientStart = Color.Unspecified,
+        homeBackgroundGradientEnd = Color.Unspecified,
     )
 }
