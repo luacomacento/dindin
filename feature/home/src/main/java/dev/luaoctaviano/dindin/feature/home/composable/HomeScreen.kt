@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
@@ -108,10 +109,10 @@ fun HomeScreenContent(
                 .fillMaxSize()
                 .background(
                     color = MaterialTheme.colorScheme.surface,
-                    shape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp)
+                    shape = RoundedCornerShape(topStart = Dimens.huge, topEnd = Dimens.huge)
                 )
-                .clip(RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp))
-                .padding(horizontal = 24.dp, vertical = 24.dp)
+                .clip(RoundedCornerShape(topStart = Dimens.huge, topEnd = Dimens.huge)),
+            contentPadding = PaddingValues(Dimens.extraLarge)
         ) {
             HomeAccountsSection(
                 accounts = uiState.bankAccounts,
