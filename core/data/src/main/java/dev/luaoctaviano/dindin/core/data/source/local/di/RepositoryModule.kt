@@ -8,6 +8,8 @@ import dev.luaoctaviano.dindin.core.data.repository.BankAccountRepository
 import dev.luaoctaviano.dindin.core.data.repository.CategoryRepository
 import dev.luaoctaviano.dindin.core.data.repository.DefaultBankAccountRepository
 import dev.luaoctaviano.dindin.core.data.repository.DefaultCategoryRepository
+import dev.luaoctaviano.dindin.core.data.repository.DefaultTransactionRepository
+import dev.luaoctaviano.dindin.core.data.repository.TransactionRepository
 import javax.inject.Singleton
 
 @Module
@@ -21,4 +23,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun bindCategoryRepository(repository: DefaultCategoryRepository): CategoryRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindTransactionRepository(repository: DefaultTransactionRepository): TransactionRepository
 }

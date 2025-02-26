@@ -19,8 +19,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import dev.luaoctaviano.dindin.core.data.source.local.dao.BankAccountAtDate
 import dev.luaoctaviano.dindin.core.data.source.local.entity.BankAccount
-import dev.luaoctaviano.dindin.core.ui.extension.CoreDrawables
 import dev.luaoctaviano.dindin.core.ui.extension.CoreIcons
 import dev.luaoctaviano.dindin.core.ui.extension.getCurrencyTextColor
 import dev.luaoctaviano.dindin.core.ui.theme.Dimens
@@ -28,16 +28,15 @@ import dev.luaoctaviano.dindin.core.util.extension.asCurrency
 import dev.luaoctaviano.dindin.feature.home.HomeStrings
 
 fun LazyListScope.HomeAccountsSection(
-    accounts: List<BankAccount>?,
+    accounts: List<BankAccountAtDate>,
     hideBalance: Boolean,
-    onViewAccountsClick: () -> Unit,
 ) {
     item {
         Row(
             modifier =
                 Modifier
                     .fillMaxWidth()
-                    .padding(bottom = Dimens.small),
+                    .padding(bottom = Dimens.medium),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -46,7 +45,9 @@ fun LazyListScope.HomeAccountsSection(
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onSurface,
             )
-//            ViewAllButton(onViewAccountsClick)
+
+            // Disabled for initial deploy
+            //            ViewAllButton(onViewAccountsClick)
         }
     }
     accounts?.let { accountsList ->
@@ -61,8 +62,8 @@ fun LazyListScope.HomeAccountsSection(
 }
 
 @Composable
-fun AccountInfo(
-    account: BankAccount,
+private fun AccountInfo(
+    account: BankAccountAtDate,
     hideBalance: Boolean,
 ) {
     Row(
@@ -70,7 +71,7 @@ fun AccountInfo(
         horizontalArrangement = Arrangement.spacedBy(Dimens.medium),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        val icon = CoreIcons.getIconByIdOrNull(account.iconId)
+        val icon = CoreIcons.getIconByIdOrNull(account.icon)
 
         icon?.let {
             Icon(
@@ -90,16 +91,17 @@ fun AccountInfo(
                 color = MaterialTheme.colorScheme.onSurface,
             )
             Text(
-                text = account.initialBalance.asCurrency(hideBalance),
+                text = account.currentBalance.asCurrency(hideBalance),
                 style = MaterialTheme.typography.labelLarge,
-                color = account.initialBalance.getCurrencyTextColor(hideBalance),
+                color = account.currentBalance.getCurrencyTextColor(hideBalance),
             )
         }
-        Icon(
-            painter = painterResource(CoreDrawables.ic_chevron_right),
-            tint = MaterialTheme.colorScheme.onSurface.copy(0.5F),
-            contentDescription = null,
-        )
+
+        // Disabled for initial deploy
+        //        Icon(
+        //            painter = painterResource(CoreDrawables.ic_chevron_right),
+        //            tint = MaterialTheme.colorScheme.onSurface.copy(0.5F),
+        //            contentDescription = null,
+        //        )
     }
 }
-

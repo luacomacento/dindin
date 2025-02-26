@@ -10,6 +10,7 @@ import dagger.hilt.components.SingletonComponent
 import dev.luaoctaviano.dindin.core.data.source.local.DinDinDatabase
 import dev.luaoctaviano.dindin.core.data.source.local.dao.BankAccountDao
 import dev.luaoctaviano.dindin.core.data.source.local.dao.CategoryDao
+import dev.luaoctaviano.dindin.core.data.source.local.dao.TransactionDao
 import javax.inject.Singleton
 
 @Module
@@ -34,4 +35,7 @@ object DatabaseModule {
 
     @Provides
     fun provideCategoryDao(database: DinDinDatabase): CategoryDao = database.categoryDao()
+
+    @Provides
+    fun provideTransactionDao(database: DinDinDatabase): TransactionDao = database.transactionDao()
 }

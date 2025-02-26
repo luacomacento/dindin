@@ -2,7 +2,6 @@ package dev.luaoctaviano.dindin.feature.transactions.newtransaction.composable
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import dev.luaoctaviano.dindin.core.data.source.local.entity.BankAccount
-import dev.luaoctaviano.dindin.core.ui.extension.CoreIcons
 import dev.luaoctaviano.dindin.feature.transactions.newtransaction.NewTransactionUiState
 
 class NewTransactionPreviewParameterProvider : PreviewParameterProvider<NewTransactionUiState> {
@@ -10,7 +9,7 @@ class NewTransactionPreviewParameterProvider : PreviewParameterProvider<NewTrans
 
     private val filledState = defaultState.copy(
         description = "Despesa de teste",
-        value = "1000",
+        amount = "1000",
         isPaid = true,
         associatedAccount = BankAccount(
             name = "Carteira",

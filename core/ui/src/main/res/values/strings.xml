@@ -3,4 +3,13 @@
     <string name="action_cancel">Cancelar</string>
     <string name="action_save">Salvar</string>
     <string name="action_clear">Limpar</string>
+    <string name="action_delete">Excluir</string>
+    <string name="action_view_all">Ver tudo</string>
+    <string name="description_paid">pago</string>
+    <string name="description_unpaid">não-pago</string>
+    <string name="description_received">recebido</string>
+    <string name="description_unreceived">não-recebido</string>
+    <string name="description_transfered">transferido</string>
+    <string name="description_untransfered">não-transferido</string>
+    <string name="unavailable_label">Indisponível</string>
 </resources>

@@ -22,7 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import dev.luaoctaviano.dindin.core.data.enums.TransactionType
+import dev.luaoctaviano.dindin.core.util.enums.TransactionType
 import dev.luaoctaviano.dindin.core.ui.extension.CoreDrawables
 import dev.luaoctaviano.dindin.core.ui.extension.CoreStrings
 import dev.luaoctaviano.dindin.core.ui.theme.Dimens

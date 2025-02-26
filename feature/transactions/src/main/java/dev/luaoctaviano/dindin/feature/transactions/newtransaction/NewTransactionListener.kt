@@ -1,6 +1,6 @@
 package dev.luaoctaviano.dindin.feature.transactions.newtransaction
 
-import dev.luaoctaviano.dindin.core.data.enums.TransactionType
+import dev.luaoctaviano.dindin.core.util.enums.TransactionType
 import dev.luaoctaviano.dindin.core.data.source.local.entity.BankAccount
 import dev.luaoctaviano.dindin.core.ui.BaseScreenListener
 
@@ -12,6 +12,7 @@ interface NewTransactionListener : BaseScreenListener {
     fun onSetDefaultAccountClick(account: BankAccount?)
     fun onToggleAccountSelector(open: Boolean)
     fun onToggleCategorySelector(open: Boolean)
+    fun onNewTransactionButtonClick()
 }
 
 internal object DummyNewTransactionListener : NewTransactionListener {
@@ -28,6 +29,8 @@ internal object DummyNewTransactionListener : NewTransactionListener {
     override fun onToggleAccountSelector(open: Boolean) = Unit
 
     override fun onToggleCategorySelector(open: Boolean) = Unit
+
+    override fun onNewTransactionButtonClick() = Unit
 
     override fun onBackClick() = Unit
 

@@ -18,10 +18,11 @@ sealed class DinBottomNavItem(
     companion object {
         fun entries() = listOf(
             Home,
-            Transactions,
             NewTransaction,
-            BankAccounts,
-            Categories,
+            Transactions,
+            // Disabled for initial deploy
+            //            BankAccounts,
+            //            Categories,
         )
     }
 }

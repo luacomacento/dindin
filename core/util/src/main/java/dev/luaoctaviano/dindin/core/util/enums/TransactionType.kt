@@ -1,4 +1,4 @@
-package dev.luaoctaviano.dindin.core.data.enums
+package dev.luaoctaviano.dindin.core.util.enums
 
 enum class TransactionType(val id: Int, val isEnabled: Boolean = true) {
     EXPENSE(1),

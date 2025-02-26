@@ -9,6 +9,7 @@
     <string name="title_new_expense">Nova despesa</string>
     <string name="title_new_income">Nova receita</string>
     <string name="title_new_transfer">Nova transferência</string>
+    <string name="title_transactions">Transações</string>
     <string name="action_make_default">Tornar padrão</string>
     <string name="action_select_account">Selecionar conta</string>
     <string name="action_select_category">Selecionar categoria</string>

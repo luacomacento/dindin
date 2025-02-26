@@ -38,7 +38,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import dev.luaoctaviano.dindin.core.data.enums.TransactionType
+import dev.luaoctaviano.dindin.core.util.enums.TransactionType
 import dev.luaoctaviano.dindin.core.data.source.local.entity.BankAccount
 import dev.luaoctaviano.dindin.core.ui.LocalNavControllerProvider
 import dev.luaoctaviano.dindin.core.ui.composable.DinButton
@@ -119,6 +119,11 @@ fun NewTransactionScreen(
             override fun onToggleCategorySelector(open: Boolean) {
                 showCategorySheet = open
             }
+
+            override fun onNewTransactionButtonClick() {
+                viewModel.createTransaction()
+                navController?.navigateUp()
+            }
         }
     )
 
@@ -182,7 +187,6 @@ fun NewTransactionScreenContent(
     uiState: NewTransactionUiState,
     listener: NewTransactionListener,
     modifier: Modifier = Modifier,
-//    datePickerState: DatePickerState,
 ) {
     val focusManager = LocalFocusManager.current
 
@@ -199,7 +203,7 @@ fun NewTransactionScreenContent(
                 },
     ) {
         NewTransactionHeader(
-            transactionValue = uiState.value,
+            transactionValue = uiState.amount,
             transactionType = uiState.transactionType,
             listener = listener,
         )
@@ -215,18 +219,6 @@ fun NewTransactionScreenContent(
                     .padding(vertical = Dimens.large, horizontal = Dimens.extraLarge)
                     .fillMaxSize(),
         ) {
-            var openDialog by remember { mutableStateOf(false) }
-
-//                DatePickerRow(
-//                    datePickerState = datePickerState,
-//                    openDialog = openDialog,
-//                    operationTypeColor = transactionData.type.backgroundColor,
-//                    onToggleDialog = {
-//                        openDialog = it
-//                        transactionData.onChangePaidStatus(verifyIfIsPaid(datePickerState.selectedDateMillis!!))
-//                    },
-//                )
-
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -303,10 +295,7 @@ fun NewTransactionScreenContent(
                 modifier = Modifier.padding(bottom = Dimens.medium),
                 enabled = uiState.associatedAccount != null && uiState.category != null,
                 enabledColor = uiState.transactionType.getBackgroundColor(),
-                onClick = {
-//                        onCreateTransaction(transactionData)
-//                        onDismissBottomSheet()
-                },
+                onClick = { listener.onNewTransactionButtonClick() },
             ) {
                 Text(
                     text = stringResource(CoreStrings.action_save),

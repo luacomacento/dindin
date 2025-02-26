@@ -30,4 +30,42 @@ interface BankAccountDao {
 
     @Query("SELECT * FROM BankAccount")
     fun getAllAsFlow(): Flow<List<BankAccount>>
+
+    @Query("""
+        SELECT
+            BankAccount.id,
+            BankAccount.name,
+            BankAccount.initialBalance,
+            COALESCE(transactionSum.balance, 0) + BankAccount.initialBalance AS currentBalance,
+            BankAccount.iconId AS icon
+        FROM
+            BankAccount
+        LEFT JOIN (
+            SELECT
+                accountId,
+                SUM(amount) AS balance
+            FROM
+                'Transaction'
+            WHERE
+                isPaid = 1
+            AND strftime(
+                '%m-%Y',
+                datetime(dueDate / 1000, 'unixepoch')
+            ) <= strftime(
+                '%m-%Y',
+                datetime(:dateInMillis / 1000, 'unixepoch')
+            )
+            GROUP BY accountId
+        ) AS transactionSum
+        ON BankAccount.id = transactionSum.accountId;
+    """)
+    fun getAllAtDate(dateInMillis: Long): Flow<List<BankAccountAtDate>>
 }
+
+data class BankAccountAtDate(
+    val id: Long = 0L,
+    val name: String,
+    val icon: String,
+    val initialBalance: Long = 0L,
+    val currentBalance: Long = 0L,
+)

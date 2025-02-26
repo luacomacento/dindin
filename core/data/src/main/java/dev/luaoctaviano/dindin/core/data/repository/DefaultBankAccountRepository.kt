@@ -1,5 +1,6 @@
 package dev.luaoctaviano.dindin.core.data.repository
 
+import dev.luaoctaviano.dindin.core.data.source.local.dao.BankAccountAtDate
 import dev.luaoctaviano.dindin.core.data.source.local.dao.BankAccountDao
 import dev.luaoctaviano.dindin.core.data.source.local.entity.BankAccount
 import kotlinx.coroutines.flow.Flow
@@ -15,6 +16,9 @@ class DefaultBankAccountRepository @Inject constructor(
 
     override fun getAccounts(): Flow<List<BankAccount>> =
         localDataSource.getAllAsFlow()
+
+    override fun getAccountsAtDate(dateInMillis: Long): Flow<List<BankAccountAtDate>> =
+        localDataSource.getAllAtDate(dateInMillis)
 
     override suspend fun insertAccount(account: BankAccount) {
         localDataSource.insert(account)

@@ -1,6 +1,6 @@
 package dev.luaoctaviano.dindin.feature.home
 
-import dev.luaoctaviano.dindin.core.data.enums.TransactionType
+import dev.luaoctaviano.dindin.core.util.enums.TransactionType
 import dev.luaoctaviano.feature.home.R
 
 typealias HomeDrawables = R.drawable

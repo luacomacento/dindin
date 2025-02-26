@@ -1,6 +1,6 @@
 package dev.luaoctaviano.dindin.core.domain
 
-import dev.luaoctaviano.dindin.core.data.enums.TransactionType
+import dev.luaoctaviano.dindin.core.util.enums.TransactionType
 import dev.luaoctaviano.dindin.core.data.repository.CategoryRepository
 import dev.luaoctaviano.dindin.core.data.source.local.entity.Category
 import kotlinx.coroutines.flow.Flow

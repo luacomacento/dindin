@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import dev.luaoctaviano.dindin.core.data.enums.TransactionType
+import dev.luaoctaviano.dindin.core.util.enums.TransactionType
 import dev.luaoctaviano.dindin.core.ui.extension.bottomTabIndicatorOffset
 import dev.luaoctaviano.dindin.core.ui.theme.Dimens
 import dev.luaoctaviano.dindin.feature.transactions.extension.getDescription
@@ -50,6 +50,9 @@ fun TransactionTypeSelector(
             },
         ) {
             TransactionType.entries.forEach {
+                // Disabled for initial deploy
+                if (it == TransactionType.TRANSFER) return@forEach
+
                 TypeSelectorTab(
                     transactionType = it,
                     isSelected = selectedTransactionType == it,

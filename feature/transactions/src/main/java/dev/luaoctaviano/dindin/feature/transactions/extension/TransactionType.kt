@@ -1,7 +1,7 @@
 package dev.luaoctaviano.dindin.feature.transactions.extension
 
 import androidx.compose.runtime.Composable
-import dev.luaoctaviano.dindin.core.data.enums.TransactionType
+import dev.luaoctaviano.dindin.core.util.enums.TransactionType
 import dev.luaoctaviano.dindin.core.ui.theme.DinDinTheme
 import dev.luaoctaviano.dindin.feature.transactions.R
 

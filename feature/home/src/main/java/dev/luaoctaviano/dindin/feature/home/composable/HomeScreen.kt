@@ -35,14 +35,19 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import dev.luaoctaviano.dindin.core.data.enums.TransactionType
+import dev.luaoctaviano.dindin.core.ui.LocalNavControllerProvider
+import dev.luaoctaviano.dindin.core.ui.extension.AppRoute
+import dev.luaoctaviano.dindin.core.ui.extension.CoreStrings
+import dev.luaoctaviano.dindin.core.util.enums.TransactionType
 import dev.luaoctaviano.dindin.core.ui.extension.StatusBarIconColor
 import dev.luaoctaviano.dindin.core.ui.extension.forceStatusBarIconColor
 import dev.luaoctaviano.dindin.core.ui.extension.getHomeBackgroundGradientBrush
 import dev.luaoctaviano.dindin.core.ui.theme.Dimens
 import dev.luaoctaviano.dindin.core.ui.theme.DinDinTheme
 import dev.luaoctaviano.dindin.core.util.extension.asCurrency
+import dev.luaoctaviano.dindin.feature.home.DummyHomeListener
 import dev.luaoctaviano.dindin.feature.home.HomeHeaderUiState
+import dev.luaoctaviano.dindin.feature.home.HomeListener
 import dev.luaoctaviano.dindin.feature.home.HomeStrings
 import dev.luaoctaviano.dindin.feature.home.HomeUiState
 import dev.luaoctaviano.dindin.feature.home.HomeViewModel
@@ -55,16 +60,31 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val navController = LocalNavControllerProvider.current
 
     HomeScreenContent(
         modifier = modifier,
         uiState = uiState,
+        listener = object : HomeListener {
+            override fun onHideValuesClick() {
+                viewModel.toggleHiddenValues()
+            }
+
+            override fun onDeleteTransactionClick(transactionId: Long) {
+                viewModel.deleteTransaction(transactionId)
+            }
+
+            override fun onViewAlLTransactionsClick() {
+                navController?.navigate(AppRoute.TRANSACTIONS.name)
+            }
+        }
     )
 }
 
 @Composable
 fun HomeScreenContent(
     uiState: HomeUiState,
+    listener: HomeListener,
     modifier: Modifier = Modifier,
 ) {
     forceStatusBarIconColor(StatusBarIconColor.LIGHT)
@@ -73,16 +93,18 @@ fun HomeScreenContent(
         Modifier
             .fillMaxSize()
             .background(brush = getHomeBackgroundGradientBrush())
+            .then(modifier)
     ) {
         HomeHeader(
-            modifier = modifier,
+            modifier = Modifier,
             uiState = uiState.header,
             hideValues = uiState.hideValues,
+            listener = listener,
         )
 
         LazyColumn(
             modifier = Modifier
-                .padding(top = 244.dp)
+                .padding(top = 230.dp)
                 .fillMaxSize()
                 .background(
                     color = MaterialTheme.colorScheme.surface,
@@ -94,7 +116,17 @@ fun HomeScreenContent(
             HomeAccountsSection(
                 accounts = uiState.bankAccounts,
                 hideBalance = uiState.hideValues,
-            ) { }
+            )
+
+            item {
+                Spacer(modifier = Modifier.size(Dimens.medium))
+            }
+
+            HomeLastTransactionsSection(
+                transactions = uiState.lastFiveTransactions,
+                hideValues = uiState.hideValues,
+                listener = listener,
+            )
         }
     }
 }
@@ -102,6 +134,7 @@ fun HomeScreenContent(
 @Composable
 internal fun HomeHeader(
     uiState: HomeHeaderUiState,
+    listener: HomeListener,
     modifier: Modifier = Modifier,
     hideValues: Boolean = false,
 ) {
@@ -132,7 +165,7 @@ internal fun HomeHeader(
                 color = Color.White,
             )
             IconButton(
-                onClick = {}
+                onClick = { listener.onHideValuesClick() }
             ) {
                 Icon(
                     painter = painterResource(getVisibilityIcon(hidden = hideValues)),
@@ -168,7 +201,6 @@ internal fun RowScope.HeaderCard(
     description: String,
     balance: Long = 0L,
     hideBalance: Boolean,
-    onClick: () -> Unit = {},
 ) {
     Card(
         modifier = Modifier
@@ -209,13 +241,13 @@ internal fun RowScope.HeaderCard(
                     )
                 }
 
-                var balanceText = balance.asCurrency(
-                    hidden = hideBalance,
-                )
+                // Disabled for initial deploy
+                //                var balanceText = balance.asCurrency(
+                //                    hidden = hideBalance,
+                //                )
 
-//                BoxWithConstraints {
                 Text(
-                    text = balanceText,
+                    text = stringResource(CoreStrings.unavailable_label),
                     style =
                         MaterialTheme.typography.titleMedium.copy(
                             fontWeight = FontWeight.SemiBold,
@@ -223,7 +255,6 @@ internal fun RowScope.HeaderCard(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )
-//                }
             }
         }
     }
@@ -238,7 +269,8 @@ private fun HomeScreenContentPreview(
 ) {
     DinDinTheme {
         HomeScreenContent(
-            uiState = uiState
+            uiState = uiState,
+            listener = DummyHomeListener,
         )
     }
 }

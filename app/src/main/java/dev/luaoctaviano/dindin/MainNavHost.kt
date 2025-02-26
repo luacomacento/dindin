@@ -13,6 +13,8 @@ import dev.luaoctaviano.dindin.core.ui.LocalNavControllerProvider
 import dev.luaoctaviano.dindin.core.ui.extension.AppRoute
 import dev.luaoctaviano.dindin.feature.home.HomeViewModel
 import dev.luaoctaviano.dindin.feature.home.composable.HomeScreen
+import dev.luaoctaviano.dindin.feature.transactions.list.TransactionListViewModel
+import dev.luaoctaviano.dindin.feature.transactions.list.composable.TransactionListScreen
 import dev.luaoctaviano.dindin.feature.transactions.newtransaction.composable.NewTransactionScreen
 import dev.luaoctaviano.dindin.feature.transactions.newtransaction.NewTransactionViewModel
 
@@ -65,6 +67,15 @@ fun MainNavHost(
                 val viewModel = hiltViewModel<NewTransactionViewModel>()
 
                 NewTransactionScreen(
+                    viewModel = viewModel,
+                    modifier = modifier,
+                )
+            }
+
+            composable(route = AppRoute.TRANSACTIONS.name) {
+                val viewModel = hiltViewModel<TransactionListViewModel>()
+
+                TransactionListScreen(
                     viewModel = viewModel,
                     modifier = modifier,
                 )

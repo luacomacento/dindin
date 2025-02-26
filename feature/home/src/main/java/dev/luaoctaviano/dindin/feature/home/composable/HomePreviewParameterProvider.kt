@@ -1,6 +1,7 @@
 package dev.luaoctaviano.dindin.feature.home.composable
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import dev.luaoctaviano.dindin.core.data.source.local.dao.BankAccountAtDate
 import dev.luaoctaviano.dindin.core.data.source.local.entity.BankAccount
 import dev.luaoctaviano.dindin.core.ui.extension.CoreIcons
 import dev.luaoctaviano.dindin.feature.home.HomeHeaderUiState
@@ -14,7 +15,7 @@ class HomePreviewParameterProvider : PreviewParameterProvider<HomeUiState> {
     )
 
     private val defaultAccountList = listOf(
-        BankAccount(name = "Carteira", iconId = CoreIcons.WALLET.id)
+        BankAccountAtDate(name = "Carteira", icon = CoreIcons.WALLET.id)
     )
 
     private val defaultState = HomeUiState(
