@@ -102,7 +102,10 @@ fun TransactionItem(
         ) {
             DropdownMenuItem(
                 text = { Text(stringResource(CoreStrings.action_delete)) },
-                onClick = { listener.onDeleteTransactionClick(transaction.id) }
+                onClick = {
+                    listener.onDeleteTransactionClick(transaction.id)
+                    expandedMenu = false
+                }
             )
         }
     }
