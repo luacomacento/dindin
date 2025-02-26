@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CategoryDao {
     @Query("SELECT * FROM category")
-    fun getAllAsFlow(): Flow<List<Category>>
+    suspend fun getAll(): List<Category>
 
     @Query("SELECT count(*) FROM category")
     suspend fun count(): Int
