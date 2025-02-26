@@ -42,8 +42,6 @@ internal fun DinNavigationBarItem(
             Color.Transparent
         }
 
-    val defaultModifier = if (isMainItem) Modifier.buttonPushDownAnim(enabled) else modifier
-
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -51,7 +49,7 @@ internal fun DinNavigationBarItem(
     ) {
         Box(
             modifier =
-                defaultModifier
+                Modifier
                     .defaultMinSize(minHeight = 40.dp)
                     .fillMaxWidth()
                     .background(
