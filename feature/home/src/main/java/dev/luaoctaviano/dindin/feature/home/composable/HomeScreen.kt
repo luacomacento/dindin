@@ -175,7 +175,9 @@ internal fun RowScope.HeaderCard(
             .weight(1F)
             .height(78.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0x12FFFFFF),
+            containerColor = MaterialTheme.colorScheme.surface.copy(
+                alpha = 0.08F
+            ),
             contentColor = Color.White,
         )
     ) {
