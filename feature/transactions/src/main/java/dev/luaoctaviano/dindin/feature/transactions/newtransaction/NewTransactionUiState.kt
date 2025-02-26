@@ -13,5 +13,6 @@ data class NewTransactionUiState(
     val isPaid: Boolean = false,
     val associatedAccount: BankAccount? = null,
     val category: Category? = null,
-    val accountList: List<BankAccount> = emptyList()
+    val accountList: List<BankAccount> = emptyList(),
+    val categoryList: List<Category> = emptyList()
 ) : UiState

@@ -53,6 +53,7 @@ import dev.luaoctaviano.dindin.core.ui.extension.forceStatusBarIconColor
 import dev.luaoctaviano.dindin.core.ui.theme.Dimens
 import dev.luaoctaviano.dindin.core.ui.theme.DinDinTheme
 import dev.luaoctaviano.dindin.feature.transactions.R
+import dev.luaoctaviano.dindin.feature.transactions.extension.TransactionStrings
 import dev.luaoctaviano.dindin.feature.transactions.extension.getBackgroundColor
 import dev.luaoctaviano.dindin.feature.transactions.newtransaction.DummyNewTransactionListener
 import dev.luaoctaviano.dindin.feature.transactions.newtransaction.NewTransactionListener
@@ -73,6 +74,9 @@ fun NewTransactionScreen(
 
     val accountSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var showAccountSheet by remember { mutableStateOf(false) }
+
+    val categorySheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    var showCategorySheet by remember { mutableStateOf(false) }
 
     forceStatusBarIconColor(StatusBarIconColor.LIGHT)
 
@@ -111,6 +115,10 @@ fun NewTransactionScreen(
             override fun onToggleAccountSelector(open: Boolean) {
                 showAccountSheet = open
             }
+
+            override fun onToggleCategorySelector(open: Boolean) {
+                showCategorySheet = open
+            }
         }
     )
 
@@ -135,6 +143,34 @@ fun NewTransactionScreen(
                         accountSheetState.hide()
                     }.invokeOnCompletion {
                         showAccountSheet = false
+                    }
+            },
+        )
+    }
+
+    if (showCategorySheet) {
+        SelectCategoryBottomSheet(
+            categorySheetState = categorySheetState,
+            categoryList = uiState.categoryList,
+            onSelectCategory = {
+                viewModel.changeCategory(it)
+                coroutineScope
+                    .launch {
+                        categorySheetState.hide()
+                    }.invokeOnCompletion {
+                        showCategorySheet = false
+                    }
+            },
+            onShowBottomSheet = {
+                showCategorySheet = it
+            },
+            onCleanCategory = {
+                viewModel.changeCategory(null)
+                coroutineScope
+                    .launch {
+                        categorySheetState.hide()
+                    }.invokeOnCompletion {
+                        showCategorySheet = false
                     }
             },
         )
@@ -231,7 +267,7 @@ fun NewTransactionScreenContent(
             DropDownSelector(
                 leadingIcon = CoreDrawables.ic_bank,
                 selectedIcon = CoreIcons.getIconByIdOrNull(uiState.associatedAccount?.iconId),
-                placeholder = stringResource(R.string.action_select_account),
+                placeholder = stringResource(TransactionStrings.action_select_account),
                 selectedText = uiState.associatedAccount?.name,
                 borderColor = MaterialTheme.colorScheme.primary,
                 trailingAction = {
@@ -252,17 +288,14 @@ fun NewTransactionScreenContent(
                 },
                 onOpen = { listener.onToggleAccountSelector(true) },
             )
-//
-//                DropDownSelector(
-//                    leadingIcon = Res.drawable.ic_tag,
-//                    selectedIcon =
-//                        transactionData.category?.icon?.let {
-//                            CategoryIcons.getIconById(it)
-//                        },
-//                    placeholder = stringResource(Res.string.selectCategory),
-//                    selectedText = transactionData.category?.name,
-//                    onOpen = { onToggleCategorySelector(true) },
-//                )
+
+                DropDownSelector(
+                    leadingIcon = CoreDrawables.ic_tag,
+                    selectedIcon = CoreIcons.getIconByIdOrNull(uiState.category?.icon),
+                    placeholder = stringResource(TransactionStrings.action_select_category),
+                    selectedText = uiState.category?.name,
+                    onOpen = { listener.onToggleCategorySelector(true) },
+                )
 
             Spacer(modifier = Modifier.weight(1F))
 

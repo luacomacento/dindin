@@ -11,6 +11,7 @@ interface NewTransactionListener : BaseScreenListener {
     fun onChangeTransactionPaidStatus(isPaid: Boolean)
     fun onSetDefaultAccountClick(account: BankAccount?)
     fun onToggleAccountSelector(open: Boolean)
+    fun onToggleCategorySelector(open: Boolean)
 }
 
 internal object DummyNewTransactionListener : NewTransactionListener {
@@ -25,6 +26,8 @@ internal object DummyNewTransactionListener : NewTransactionListener {
     override fun onSetDefaultAccountClick(account: BankAccount?) = Unit
 
     override fun onToggleAccountSelector(open: Boolean) = Unit
+
+    override fun onToggleCategorySelector(open: Boolean) = Unit
 
     override fun onBackClick() = Unit
 

@@ -5,7 +5,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.luaoctaviano.dindin.core.data.enums.TransactionType
 import dev.luaoctaviano.dindin.core.data.source.local.entity.BankAccount
+import dev.luaoctaviano.dindin.core.data.source.local.entity.Category
 import dev.luaoctaviano.dindin.core.domain.GetAccountListAtDateUseCase
+import dev.luaoctaviano.dindin.core.domain.GetGroupedCategoryListUseCase
 import dev.luaoctaviano.dindin.core.domain.SetDefaultBankAccountUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -15,12 +17,16 @@ import javax.inject.Inject
 class NewTransactionViewModel @Inject constructor(
     private val setDefaultBankAccountUseCase: SetDefaultBankAccountUseCase,
     private val getAccountListAtDateUseCase: GetAccountListAtDateUseCase,
+    private val getGroupedCategoryListUseCase: GetGroupedCategoryListUseCase,
 ) : ViewModel() {
 
     val uiState: MutableStateFlow<NewTransactionUiState> = MutableStateFlow(NewTransactionUiState())
 
+    private var fullCategoryList: List<Category> = emptyList()
+
     init {
         getAccounts()
+        getCategories()
     }
 
     private fun getAccounts() {
@@ -34,6 +40,20 @@ class NewTransactionViewModel @Inject constructor(
         }
     }
 
+    private fun getCategories() {
+        viewModelScope.launch {
+            getGroupedCategoryListUseCase().collect { groupedCategories ->
+                fullCategoryList = groupedCategories.values.flatten()
+                val selectedCategoryList = groupedCategories[uiState.value.transactionType].orEmpty()
+
+                uiState.value = uiState.value.copy(
+                    categoryList = selectedCategoryList,
+                    category = selectedCategoryList.find { it.isDefault }
+                )
+            }
+        }
+    }
+
     fun changeTransactionValueField(newValue: String) {
         uiState.value = uiState.value.copy(
             value = newValue
@@ -41,8 +61,12 @@ class NewTransactionViewModel @Inject constructor(
     }
 
     fun changeTransactionType(newType: TransactionType) {
+        val newCategoryList = fullCategoryList.filter { it.type == newType }
+
         uiState.value = uiState.value.copy(
-            transactionType = newType
+            transactionType = newType,
+            categoryList = newCategoryList,
+            category = newCategoryList.find { it.isDefault }
         )
     }
 
@@ -70,6 +94,12 @@ class NewTransactionViewModel @Inject constructor(
     fun changeAssociatedAccount(bankAccount: BankAccount?) {
         uiState.value = uiState.value.copy(
             associatedAccount = bankAccount
+        )
+    }
+
+    fun changeCategory(category: Category?) {
+        uiState.value = uiState.value.copy(
+            category = category
         )
     }
 }

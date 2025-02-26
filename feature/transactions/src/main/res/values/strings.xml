@@ -11,4 +11,5 @@
     <string name="title_new_transfer">Nova transferência</string>
     <string name="action_make_default">Tornar padrão</string>
     <string name="action_select_account">Selecionar conta</string>
+    <string name="action_select_category">Selecionar categoria</string>
 </resources>
