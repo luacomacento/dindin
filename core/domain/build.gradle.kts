@@ -42,10 +42,18 @@ dependencies {
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
 
+    // mockk
+    testImplementation(libs.mockk)
+    androidTestImplementation(libs.mockk.android)
+
+    // coroutines test
+    testImplementation(libs.kotlinx.coroutines.test)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation(kotlin("test"))
 }

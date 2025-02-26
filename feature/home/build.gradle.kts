@@ -40,13 +40,19 @@ android {
 
 dependencies {
     implementation(project(":core:util"))
-//    implementation(project(":core:data"))
     implementation(project(":core:domain"))
     implementation(project(":core:ui"))
 
     // di
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
+
+    // mockk
+    testImplementation(libs.mockk)
+    androidTestImplementation(libs.mockk.android)
+
+    // coroutines test
+    testImplementation(libs.kotlinx.coroutines.test)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)

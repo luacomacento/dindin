@@ -20,7 +20,7 @@ class CreateTransactionUseCase @Inject constructor(
     ) {
         val newTransaction = Transaction(
             description = description.ifEmpty { category?.name.orEmpty() },
-            amount = amount.toTypedCurrencyLong(type),
+            amount = amount.toTypedCurrencyLong(type) ?: 0L,
             accountId = accountId ?: 0L,
             categoryId = category?.id ?: 0L,
             type = type,

@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import dev.luaoctaviano.dindin.core.data.source.local.entity.Category
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CategoryDao {

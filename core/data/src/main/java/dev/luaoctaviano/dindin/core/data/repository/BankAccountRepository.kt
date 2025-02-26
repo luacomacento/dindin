@@ -11,10 +11,6 @@ interface BankAccountRepository {
 
     fun getAccountsAtDate(dateInMillis: Long): Flow<List<BankAccountAtDate>>
 
-    suspend fun insertAccount(account: BankAccount)
-
-    suspend fun deleteAccount(id: Long)
-
     suspend fun clearDefault()
 
     suspend fun update(bankAccount: BankAccount): Int

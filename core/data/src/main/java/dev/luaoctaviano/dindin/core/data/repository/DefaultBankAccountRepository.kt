@@ -20,14 +20,6 @@ class DefaultBankAccountRepository @Inject constructor(
     override fun getAccountsAtDate(dateInMillis: Long): Flow<List<BankAccountAtDate>> =
         localDataSource.getAllAtDate(dateInMillis)
 
-    override suspend fun insertAccount(account: BankAccount) {
-        localDataSource.insert(account)
-    }
-
-    override suspend fun deleteAccount(id: Long) {
-        localDataSource.deleteById(id)
-    }
-
     override suspend fun clearDefault() {
         localDataSource.clearDefault()
     }
